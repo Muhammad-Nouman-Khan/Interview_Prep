@@ -1,6 +1,15 @@
+import { useState } from "react";
 import { Link } from "react-router";
 
 const SignIn = () => {
+  const [signinData, setSigninData] = useState({
+    email: "",
+    password: "",
+  });
+  const handleSignin = (e) => {
+    e.preventDefault();
+    console.log(signinData);
+  };
   return (
     <div className="h-screen flex items-center justify-center p-4 sm:p-6 md:p-8">
       <div className="border border-primary/25 flex flex-col lg:flex-row w-full max-w-5xl mx-auto bg-base-100 rounded-xl shadow-lg overflow-hidden">
@@ -16,7 +25,7 @@ const SignIn = () => {
           </div>
 
           <div className="w-full mt-4">
-            <form>
+            <form onSubmit={handleSignin}>
               <div className="space-y-3">
                 {/* FULLNAME */}
                 {/* <div className="form-control w-full">
@@ -40,6 +49,10 @@ const SignIn = () => {
                     type="email"
                     placeholder="someone@example.com"
                     className="input input-bordered w-full"
+                    value={signinData.email}
+                    onChange={(e) =>
+                      setSigninData({ ...signinData, email: e.target.value })
+                    }
                     required
                   />
                 </div>
@@ -52,6 +65,10 @@ const SignIn = () => {
                     type="password"
                     placeholder="******"
                     className="input input-bordered w-full"
+                    value={signinData.password}
+                    onChange={(e) =>
+                      setSigninData({ ...signinData, password: e.target.value })
+                    }
                     required
                   />
                   <p className="text-xs opacity-70 mt-1">

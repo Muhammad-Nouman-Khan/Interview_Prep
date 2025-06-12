@@ -1,6 +1,20 @@
+import { useState } from "react";
 import { Link } from "react-router";
 
 const SignUp = () => {
+  const [signupData, setSignupData] = useState({
+    fullName: "",
+    email: "",
+    password: "",
+    profilePicture: "",
+    resume: "",
+  });
+
+  const handleSignup = (e) => {
+    e.preventDefault();
+    console.log(signupData);
+  };
+
   return (
     <div className="h-screen flex items-center justify-center p-4 sm:p-6 md:p-8">
       <div className="border border-primary/25 flex flex-col lg:flex-row w-full max-w-5xl mx-auto bg-base-100 rounded-xl shadow-lg overflow-hidden">
@@ -16,7 +30,7 @@ const SignUp = () => {
           </div>
 
           <div className="w-full mt-4">
-            <form>
+            <form onSubmit={handleSignup}>
               <div className="space-y-3">
                 {/* FULLNAME */}
                 <div className="form-control w-full">
@@ -27,6 +41,10 @@ const SignUp = () => {
                     type="text"
                     placeholder="Nouman Khan"
                     className="input input-bordered w-full"
+                    value={signupData.fullName}
+                    onChange={(e) =>
+                      setSignupData({ ...signupData, fullName: e.target.value })
+                    }
                     required
                   />
                 </div>
@@ -40,6 +58,10 @@ const SignUp = () => {
                     type="email"
                     placeholder="someone@example.com"
                     className="input input-bordered w-full"
+                    value={signupData.email}
+                    onChange={(e) =>
+                      setSignupData({ ...signupData, email: e.target.value })
+                    }
                     required
                   />
                 </div>
@@ -52,6 +74,10 @@ const SignUp = () => {
                     type="password"
                     placeholder="******"
                     className="input input-bordered w-full"
+                    value={signupData.password}
+                    onChange={(e) =>
+                      setSignupData({ ...signupData, password: e.target.value })
+                    }
                     required
                   />
                   <p className="text-xs opacity-70 mt-1">
@@ -66,6 +92,13 @@ const SignUp = () => {
                   <input
                     type="file"
                     className="file-input file-input-bordered w-full "
+                    value={signupData.profilePicture}
+                    onChange={(e) =>
+                      setSignupData({
+                        ...signupData,
+                        profilePicture: e.target.value,
+                      })
+                    }
                   />
                 </div>
                 {/* Resume */}
@@ -76,6 +109,10 @@ const SignUp = () => {
                   <input
                     type="file"
                     className="file-input file-input-bordered w-full "
+                    value={signupData.resume}
+                    onChange={(e) =>
+                      setSignupData({ ...signupData, resume: e.target.value })
+                    }
                   />
                 </div>
                 {/* Terms and Privacy Policy */}
