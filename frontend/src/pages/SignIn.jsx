@@ -1,14 +1,28 @@
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { Link } from "react-router";
+import { signin } from "../lib/api";
 
 const SignIn = () => {
   const [signinData, setSigninData] = useState({
     email: "",
     password: "",
   });
+
+  const queryClient = useQueryClient();
+
+  const {
+    mutate: signinMutation,
+    isPending,
+    error,
+  } = useMutation({
+    mutationFn: signin,
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["authUser"] }),
+  });
+
   const handleSignin = (e) => {
     e.preventDefault();
-    console.log(signinData);
+    signinMutation(signinData);
   };
   return (
     <div className="h-screen flex items-center justify-center p-4 sm:p-6 md:p-8">
@@ -24,22 +38,15 @@ const SignIn = () => {
             </span>
           </div>
 
+          {error && (
+            <div className="alert alert-error mb-4">
+              <span>{error.response.data.message}</span>
+            </div>
+          )}
+
           <div className="w-full mt-4">
             <form onSubmit={handleSignin}>
               <div className="space-y-3">
-                {/* FULLNAME */}
-                {/* <div className="form-control w-full">
-                  <label className="label">
-                    <span className="label-text">Full Name</span>
-                  </label>
-                  <input
-                    type="text"
-                    placeholder="Nouman Khan"
-                    className="input input-bordered w-full"
-                    required
-                  />
-                </div> */}
-
                 {/* Email */}
                 <div className="form-control w-full">
                   <label className="label">
@@ -75,49 +82,19 @@ const SignIn = () => {
                     Password must be at least 6 characters long
                   </p>
                 </div>
-                {/* Profile Picture */}
-                {/* <div className="form-control w-full">
-                  <label className="label">
-                    <span className="label-text">Profile picture</span>
-                  </label>
-                  <input
-                    type="file"
-                    className="file-input file-input-bordered w-full "
-                  />
-                </div> */}
-                {/* Resume */}
-                {/* <div className="form-control w-full">
-                  <label className="label">
-                    <span className="label-text">Resume</span>
-                  </label>
-                  <input
-                    type="file"
-                    className="file-input file-input-bordered w-full "
-                  />
-                </div> */}
-                {/* Terms and Privacy Policy */}
-                {/* <div className="form-control">
-                  <label className="label cursor-pointer justify-start gap-2">
-                    <input
-                      type="checkbox"
-                      className="checkbox checkbox-sm"
-                      required
-                    />
-                    <span className="text-xs leading-tight">
-                      I agree to the{" "}
-                      <span className="text-primary hover:underline">
-                        terms of service
-                      </span>{" "}
-                      and{" "}
-                      <span className="text-primary hover:underline">
-                        privacy policy
-                      </span>
-                    </span>
-                  </label>
-                </div> */}
               </div>
-              <button className="btn mt-4 btn-primary w-full" type="submit">
-                Sign In
+              <button
+                className="btn mt-4 btn-primary w-full"
+                type="submit"
+                disabled={isPending}
+              >
+                {isPending ? (
+                  <span className="loading loading-spinner loading-xs">
+                    Signing in...
+                  </span>
+                ) : (
+                  "Sign In"
+                )}
               </button>
               <div className="text-center mt-4">
                 <p className="text-sm">

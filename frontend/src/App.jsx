@@ -15,8 +15,14 @@ const App = () => {
   return (
     <div className="min-h-screen" data-theme="forest">
       <Routes>
-        <Route path="/signup" element={<SignUp />} />
-        <Route path="/signin" element={<SignIn />} />
+        <Route
+          path="/signup"
+          element={isAuthenticated ? <Navigate to="/" /> : <SignUp />}
+        />
+        <Route
+          path="/signin"
+          element={isAuthenticated ? <Navigate to="/" /> : <SignIn />}
+        />
         <Route
           path="/"
           element={isAuthenticated ? <Home /> : <Navigate to="/signin" />}
