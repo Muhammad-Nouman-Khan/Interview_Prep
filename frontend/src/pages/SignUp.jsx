@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router";
-
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { signup } from "../lib/api";
 const SignUp = () => {
   const [signupData, setSignupData] = useState({
     fullName: "",
@@ -10,9 +11,18 @@ const SignUp = () => {
     resume: "",
   });
 
+  const queryClient = useQueryClient();
+  const {
+    mutate: signupMutation,
+    isPending,
+    error,
+  } = useMutation({
+    mutationFn: signup,
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["authUser"] }),
+  });
   const handleSignup = (e) => {
     e.preventDefault();
-    console.log(signupData);
+    signupMutation(signupData);
   };
 
   return (
@@ -28,6 +38,14 @@ const SignUp = () => {
               TalkHire
             </span>
           </div>
+
+          {error && (
+            <div className="alert alert-error mb-4">
+              <span className="font-semibold">
+                {error.response.data.message}
+              </span>
+            </div>
+          )}
 
           <div className="w-full mt-4">
             <form onSubmit={handleSignup}>
@@ -137,7 +155,15 @@ const SignUp = () => {
                 </div>
               </div>
               <button className="btn btn-primary w-full" type="submit">
-                Sign Up
+                {isPending ? (
+                  <>
+                    <span className="loading loading-spinner loading-xs">
+                      Creating Account...
+                    </span>
+                  </>
+                ) : (
+                  "Create Account"
+                )}
               </button>
               <div className="text-center mt-4">
                 <p className="text-sm">
