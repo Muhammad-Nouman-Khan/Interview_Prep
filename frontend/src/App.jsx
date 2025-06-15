@@ -13,7 +13,7 @@ const App = () => {
     return <PageLoader />;
   }
   return (
-    <div className="min-h-screen" data-theme="forest">
+    <div className="min-h-screen" data-theme="synthwave">
       <Routes>
         <Route
           path="/signup"
