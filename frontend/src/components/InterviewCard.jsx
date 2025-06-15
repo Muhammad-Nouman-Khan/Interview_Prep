@@ -23,7 +23,7 @@ const InterviewCard = ({
     <div className="card-bordered border-primary/50 p-0.5 rounded-2xl w-full lg:w-[360px] min-h-96 bg-base-300 shadow-2xl">
       <div className="rounded-2xl min-h-full flex flex-col p-6 relative overflow-hidden gap-10 justify-between">
         <div>
-          <div className="absolute top-0 right-0 w-fit px-4 py-2 bg-base-300 rounded-bl-lg">
+          <div className="absolute top-0 right-0 w-fit px-4 py-2 bg-secondary/70 rounded-bl-lg">
             <p className="text-sm font-semibold capitalize">{normalizedType}</p>
           </div>
           <img
