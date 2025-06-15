@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { signup } from "../lib/api";
+import { Bot } from "lucide-react";
 const SignUp = () => {
   const [signupData, setSignupData] = useState({
     fullName: "",
@@ -32,7 +33,7 @@ const SignUp = () => {
         <div className="w-full lg:w-1/2 p-4 sm:p-8 flex flex-col">
           {/* LOGO */}
           <div className="mb-4 flex items-center justify-start gap-2">
-            <img src="logo.svg" alt="" />
+            <Bot className="w-10 h-10 text-primary " />
 
             <span className="text-3xl font-bold font-mono bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary tracking-wider">
               TalkHire
