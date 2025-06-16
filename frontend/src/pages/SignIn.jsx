@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Link } from "react-router";
 import { signin } from "../lib/api";
 import { Bot } from "lucide-react";
+import toast from "react-hot-toast";
 
 const SignIn = () => {
   const [signinData, setSigninData] = useState({
@@ -18,7 +19,13 @@ const SignIn = () => {
     error,
   } = useMutation({
     mutationFn: signin,
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["authUser"] }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["authUser"] });
+      toast.success("Signed in successfully");
+    },
+    onError: (error) => {
+      toast.error(error.response.data.message);
+    },
   });
 
   const handleSignin = (e) => {

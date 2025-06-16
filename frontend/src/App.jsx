@@ -5,7 +5,7 @@ import SignIn from "./pages/SignIn";
 import Home from "./pages/Home";
 import useAuthUser from "./hooks/useAuthUser";
 import PageLoader from "./components/PageLoader";
-
+import { Toaster } from "react-hot-toast";
 const App = () => {
   const { isLoading, authUser } = useAuthUser();
   const isAuthenticated = Boolean(authUser);
@@ -28,6 +28,7 @@ const App = () => {
           element={isAuthenticated ? <Home /> : <Navigate to="/signin" />}
         />
       </Routes>
+      <Toaster />
     </div>
   );
 };
