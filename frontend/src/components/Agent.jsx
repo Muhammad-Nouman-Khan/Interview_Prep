@@ -1,5 +1,5 @@
 import React from "react";
-
+import { Bot } from "lucide-react";
 const CALL_STATUS = {
   INACTIVE: "INACTIVE",
   CONNECTING: "CONNECTING",
@@ -24,12 +24,8 @@ const Agent = ({ userName }) => {
             {isSpeaking && (
               <div className="absolute -inset-4 bg-primary/30 rounded-full animate-pulse-ring"></div>
             )}
-            <div className="bg-white rounded-full p-8 relative">
-              <img
-                src="/ai-avatar.png"
-                alt="vapi"
-                className="w-28 h-28 object-contain rounded-full"
-              />
+            <div className="rounded-full p-8 bg-primary/10 relative">
+              <Bot className="w-28 h-28 object-contain rounded-full text-primary" />
             </div>
           </div>
           <h2 className="text-2xl font-semibold">AI Interviewer</h2>
@@ -41,7 +37,7 @@ const Agent = ({ userName }) => {
             {isSpeaking && (
               <div className="absolute -inset-4 bg-primary/30 rounded-full animate-pulse-ring"></div>
             )}
-            <div className="bg-white rounded-full p-8 relative">
+            <div className="bg-primary/10 rounded-full p-8 relative">
               <img
                 src="/user-avatar.png"
                 alt="user"
