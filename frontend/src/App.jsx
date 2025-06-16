@@ -6,6 +6,7 @@ import Home from "./pages/Home";
 import useAuthUser from "./hooks/useAuthUser";
 import PageLoader from "./components/PageLoader";
 import { Toaster } from "react-hot-toast";
+import Interview from "./pages/Interview";
 const App = () => {
   const { isLoading, authUser } = useAuthUser();
   const isAuthenticated = Boolean(authUser);
@@ -26,6 +27,10 @@ const App = () => {
         <Route
           path="/"
           element={isAuthenticated ? <Home /> : <Navigate to="/signin" />}
+        />
+        <Route
+          path="/interview"
+          element={isAuthenticated ? <Interview /> : <Navigate to="/signin" />}
         />
       </Routes>
       <Toaster />
